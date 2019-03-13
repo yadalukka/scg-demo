@@ -10,7 +10,6 @@ use Application\Model\Test;
 class TestController extends AbstractActionController 
 {
     const KEY = 'AIzaSyAImBQiqvaXOQtqeK8VC-9I96kMmB6Mz7I';
-    //const KEY = 'AIzaSyB9WZtRWANuYzVAUbtIt7Zjw8LjfCXuC5M';
     const LATITUDE = 13.7513788;
     const LONGITUDE = 100.5114687;
 
@@ -44,10 +43,7 @@ class TestController extends AbstractActionController
     public function restaurantsAction()
     {
         $test = new Test();
-        //$result = $test->getCachePlaceSearch(self::LATITUDE, self::LONGITUDE, self::KEY);
         $result = $test->getPlaceSearch(self::LATITUDE, self::LONGITUDE, self::KEY);
-        //var_dump($result);
-        //$restaurants = json_decode($result, false);
         
         return new ViewModel([
             'key'           => $key,

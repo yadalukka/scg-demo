@@ -34,44 +34,8 @@ class Test
         $request->setUri($url);
         $response = $client->send($request);
         $result = $response->getBody();
-        //var_dump($result);
-        $result = json_decode($result, true);
-        //var_dump($result);
-        //if(isset($result['next_page_token']) && !empty($result['next_page_token'])) {
-            /*$next = $result['next_page_token'];
-            $next_url = 'https://maps.googleapis.com/maps/api/place/search/json?key='.$key.'&pagetoken='.$next;
-            $request->setUri($next_url);
-            $response = $client->send($request);
-            $next_result = $response->getBody();*/
-            //$result['results'].push();
-        //}
-        //var_dump($result['next_page_token']);
-        return (isset($result['next_page_token']) && !empty($result['next_page_token'])) ? $this->getNextPage($result, null, $key) : $result;
-    }
-
-    public function getNextPage($result, $next_result = null, $key)
-    {
-        $client = new Client();
-        $request = new Request();
-        $next = $result['next_page_token'];
-        //var_dump($next);
-        $next_url = 'https://maps.googleapis.com/maps/api/place/search/json?key='.$key.'&pagetoken='.$next;
-        //var_dump($next_url);
-        $request->setUri($next_url);
-        $response = $client->send($request);
-        $next_result = $response->getBody();
         
-        $next_result = json_decode($next_result, true);
-        //var_dump($next_result['results']);
-
-        $result['results'][count($result['results']) + 1] = $next_result['results'];
-        echo '<pre>';
-        print_r($result);
-        //$result['results'] = array_merge($result['results'], $next_result['results']);
-        $result['next_page_token'] = $next_result['next_page_token'];
-        //var_dump($result['results']);
-        //var_dump($this->getNextPage($result, $next_result, $key));
-        return (isset($next_result['next_page_token']) && !empty($next_result['next_page_token'])) ? $this->getNextPage($result, $next_result, $key) : $result;
+        return $result;
     }
 
     public function getCachePlaceSearch($lat = null, $lng = null, $key)
@@ -93,7 +57,7 @@ class Test
         $events = $cache->getItem($cacheKey, $success);
 
         if(!$success) {
-            $result = $this->getPlaceSearch($lat = null, $lng = null, $key);
+            $result = $this->getPlaceSearch($lat, $lng, $key);
             $cache->setItem($cacheKey, $result);
         }
         
