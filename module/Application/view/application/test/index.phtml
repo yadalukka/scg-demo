@@ -1,0 +1,59 @@
+<h1 class="h3 mb-2 text-gray-800">Test Controller</h1>
+<p class="mb-4">3, 5, 9, 15, X, .. - Please create new function for finding X value</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Functions</h6>
+            </div>
+            <div class="card-body">
+                <?php 
+                $form = $this->form;
+                $form->setAttribute('action', $this->url('test', ['action' => 'find']));
+                $form->prepare();
+                echo $this->form()->openTag($form);
+                ?>
+                <div class="form-group">
+                    <?= $this->formLabel($form->get('number')); ?>
+                    <?= $this->formElement($form->get('number')); ?>
+                </div>
+                <?= $this->formElement($form->get('submit'));?>
+                <?= $this->form()->closeTag();?>
+            </div>
+        </div>
+        <?php if(!empty($result)) { ?>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Input Number</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $number;?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-arrow-left fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Result</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $result;?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-arrow-right fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
